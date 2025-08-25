@@ -1,0 +1,324 @@
+{
+  "name": "ETL",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1KeEF47VXCXO-eZpxhFG8Ye3gNRG3qwUSjES2kZ-_Xeo",
+          "mode": "list",
+          "cachedResultName": "Agenda Ia",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KeEF47VXCXO-eZpxhFG8Ye3gNRG3qwUSjES2kZ-_Xeo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Agenda IA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KeEF47VXCXO-eZpxhFG8Ye3gNRG3qwUSjES2kZ-_Xeo/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d43daec7-10ab-4cb9-8660-5db72fa8fe78",
+      "name": "Agenda IA",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "l1pXqV3OAyTRSgsf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1UNROt8uGtCsr1TIsSJ8hC1ZVDQ_4_pXnVzg4mlLPasA",
+          "mode": "list",
+          "cachedResultName": "AGENDA MARKETING",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UNROt8uGtCsr1TIsSJ8hC1ZVDQ_4_pXnVzg4mlLPasA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "MKT",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UNROt8uGtCsr1TIsSJ8hC1ZVDQ_4_pXnVzg4mlLPasA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        160
+      ],
+      "id": "fa0cf3b8-61f1-41a0-9f61-37b4e10c4653",
+      "name": "Agenda MKT",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "l1pXqV3OAyTRSgsf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OjisMsyH_xSJPmFq43mbC-_IX-w02VjAiUkea6-ovcw",
+          "mode": "list",
+          "cachedResultName": "Agenda RH",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OjisMsyH_xSJPmFq43mbC-_IX-w02VjAiUkea6-ovcw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "RECURSOS HUMANOS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OjisMsyH_xSJPmFq43mbC-_IX-w02VjAiUkea6-ovcw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        320
+      ],
+      "id": "2088de38-ee89-48dd-bf6e-cde72f70d8a8",
+      "name": "Agenda RH",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "l1pXqV3OAyTRSgsf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"Data\": \"{{ $json[\"Data/Anual\"] }}\",\n  \"Evento\": \"{{ $json.Evento }}\",\n  \"Descrição\": \"{{$json[\"Descrição\"]}}\",\n  \"Engajamento\": {{ $json.Engajamento }},\n  \"STATUS\": \"{{ $json.STATUS }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6872d06f-8ae4-4f37-85f1-4c6d6e7ff47c",
+      "name": "Edit Fields IA"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"Data\": \"{{ $json[\"Data/Anual\"] }}\",\n  \"Evento\": {{ JSON.stringify($json.Evento || \"\") }},\n  \"Descricao\": \"{{$json[\"Descrição\"]}}\",\n  \"STATUS\": \"{{ $json.STATUS }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        160
+      ],
+      "id": "848ee205-9545-406a-a855-7b7118e00fd6",
+      "name": "Edit Fields MKT"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"Data\": \"{{ $json[\"Data/Anual\"] }}\",\n  \"Evento\": \"{{ $json.Evento }}\",\n  \"Descrição\": \"{{$json[\"Descrição\"]}}\",\n  \"ALCANCE\": {{ $json.ALCANCE }},\n  \"STATUS\": \"{{ $json.STATUS }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        320
+      ],
+      "id": "b33e3548-1090-47c1-8a93-ec4bf4a11da1",
+      "name": "Edit Fields RH"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": " http:/fastapi_app:8000/agendaIA/",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": \"{{ $json.Data }}\",\n  \"evento\": \"{{ $json.Evento }}\",\n  \"descricao\": \"{{ $json[\"Descrição\"] }}\",\n  \"engajamento\": {{ $json.Engajamento }},\n  \"status\": \"{{ $json.STATUS }}\",\n  \"areaEvento\": \"Inteligência Artificial\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "a8e3d210-90d7-456a-9874-c22f3b3f83ec",
+      "name": "HTTP Request IA"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": " http://fastapi_app:8000/agendaMKT/",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": \"{{ $json.Data }}\",\n  \"evento\": {{ JSON.stringify($json.Evento || \"\") }},\n  \"descricao\": \"{{ $json[\"Descricao\"] }}\",\n  \"status\": \"{{ $json.STATUS }}\",\n  \"areaEvento\": \"Marketing\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        432,
+        160
+      ],
+      "id": "7d958a39-df0f-47a1-9e1b-25013b3d9ac0",
+      "name": "HTTP Request MKT"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://fastapi_app:8000/agendaRH/",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": \"{{ $json.Data }}\",\n  \"evento\": \"{{ $json.Evento }}\",\n  \"descricao\": \"{{ $json[\"Descrição\"] }}\",\n  \"alcance\": {{ $json.ALCANCE }},\n  \"status\": \"{{ $json.STATUS }}\",\n  \"areaEvento\": \"Recursos Humanos\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        432,
+        320
+      ],
+      "id": "c74cf5dd-48bc-4f1b-abd7-b6c3663e08b8",
+      "name": "HTTP Request RH"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "68777c06-72ec-49fd-b0cd-ee87d6b47e51",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        160
+      ],
+      "id": "0dd7cb29-e002-41bb-a147-84833ed08e65",
+      "name": "Webhook",
+      "webhookId": "68777c06-72ec-49fd-b0cd-ee87d6b47e51"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Agenda IA": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agenda MKT": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields MKT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agenda RH": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields RH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields IA": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields MKT": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request MKT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields RH": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request RH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Agenda MKT",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Agenda IA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Agenda RH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d9bca0f0-e2da-49c4-90b2-5ae95e628dc5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d579ae6726b0b61a00485ba68ea2feb33c1f44f26562f0351be889ea88141c16"
+  },
+  "id": "AP3esGX3z6ozpUpw",
+  "tags": []
+}
