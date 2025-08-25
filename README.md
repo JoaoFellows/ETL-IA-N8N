@@ -7,7 +7,7 @@ Este projeto é um backend em Python utilizando FastAPI para gerenciar diferente
 ## Estrutura do Projeto
 
 ```
-PyBack/
+ETL-IA-N8N/
 ├── app/
 │   ├── models.py           # Modelos SQLAlchemy
 │   ├── database.py         # Conexão e sessão do banco
