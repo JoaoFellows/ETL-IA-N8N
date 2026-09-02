@@ -145,7 +145,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": " http:/fastapi_app:8000/agendaIA/",
+        "url": "http://fastapi_app:8000/agendaIA/",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"data\": \"{{ $json.Data }}\",\n  \"evento\": \"{{ $json.Evento }}\",\n  \"descricao\": \"{{ $json[\"Descrição\"] }}\",\n  \"engajamento\": {{ $json.Engajamento }},\n  \"status\": \"{{ $json.STATUS }}\",\n  \"areaEvento\": \"Inteligência Artificial\"\n}",
@@ -163,7 +163,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": " http://fastapi_app:8000/agendaMKT/",
+        "url": "http://fastapi_app:8000/agendaMKT/",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"data\": \"{{ $json.Data }}\",\n  \"evento\": {{ JSON.stringify($json.Evento || \"\") }},\n  \"descricao\": \"{{ $json[\"Descricao\"] }}\",\n  \"status\": \"{{ $json.STATUS }}\",\n  \"areaEvento\": \"Marketing\"\n}",
