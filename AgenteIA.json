@@ -1,0 +1,574 @@
+{
+  "name": "AgenteIA",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"message\": {{ JSON.stringify($json.output) }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        336,
+        176
+      ],
+      "id": "e3e3c194-8893-43d8-a1ec-23d75381a785",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.prompt }}",
+        "options": {
+          "systemMessage": "Você é um assistente de eventos e consultas relacionadas à API da empresa. \nSeu papel é responder de forma clara e precisa perguntas sobre eventos:\n\n1. Responda apenas perguntas dentro do seu escopo (eventos). Se a pergunta não for sobre eventos, diga: \n   \"Desculpe, não posso responder a isso pois a pergunta foge do meu escopo.\"\n2. Sempre use informações fornecidas pela API; nunca invente dados.\n3. Mantenha respostas curtas e diretas, em linguagem natural.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -32,
+        176
+      ],
+      "id": "46a8a04b-9627-4a3a-86c0-cd99ef1f94a2",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        384
+      ],
+      "id": "42cd149b-f256-4589-a8cc-f6d87f7c7b3b",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "C4PNuT6BrQWb87tE",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "GET Agenda IA",
+        "url": " http://fastapi_app:8000/agendaIA",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        128,
+        384
+      ],
+      "id": "ce7dad7c-0a66-40e2-a04d-1f9ac526ac09",
+      "name": "GET IA"
+    },
+    {
+      "parameters": {
+        "toolDescription": "GET Agenda RH",
+        "url": " http://fastapi_app:8000/agendaRH",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        368
+      ],
+      "id": "5b242249-3ba6-4023-81f6-16f3bea02a1d",
+      "name": "GET RH"
+    },
+    {
+      "parameters": {
+        "toolDescription": "GET Agenda Marketing",
+        "url": " http://fastapi_app:8000/agendaMKT",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        512,
+        368
+      ],
+      "id": "87ecf3b0-d983-427c-ac67-10827d4241db",
+      "name": "GET MKT"
+    },
+    {
+      "parameters": {
+        "toolDescription": "POST um novo evento de IA",
+        "method": "POST",
+        "url": " http://fastapi_app:8000/agendaIA",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `período de data`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `período de data`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `nome do evento`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `descricao do evento`, 'string') }}"
+            },
+            {
+              "name": "engajamento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `engajamento do evento`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `status do evento`, 'string') }}"
+            },
+            {
+              "name": "areaEvento",
+              "value": "Inteligência Artificial"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        128,
+        560
+      ],
+      "id": "5fbc90bd-e236-4751-9f45-ee1253de9153",
+      "name": "POST IA"
+    },
+    {
+      "parameters": {
+        "toolDescription": "POST um novo evento de RH",
+        "method": "POST",
+        "url": " http://fastapi_app:8000/agendaRH",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `período de data`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `período de data`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `nome do evento`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `descricao do evento`, 'string') }}"
+            },
+            {
+              "name": "alcance",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `alcance do evento`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `status do evento`, 'string') }}"
+            },
+            {
+              "name": "areaEvento",
+              "value": "Recursos Humanos"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        560
+      ],
+      "id": "6b059b40-ed6a-4eea-9e5d-cecd96892f7e",
+      "name": "POST RH"
+    },
+    {
+      "parameters": {
+        "toolDescription": "POST um novo evento de Marketing",
+        "method": "POST",
+        "url": " http://fastapi_app:8000/agendaIA",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `período de data`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `período de data`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `nome do evento`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `descricao do evento`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `status do evento`, 'string') }}"
+            },
+            {
+              "name": "areaEvento",
+              "value": "Marketing"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        528,
+        560
+      ],
+      "id": "9993d827-d8aa-4673-a7ee-14523c91814d",
+      "name": "POST MKT"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "output"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -32,
+        384
+      ],
+      "id": "baa9219e-8f76-4eca-b084-8503346d809e",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "VCkgzWDJG3xsP5r4",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "PATCH um evento de IA. Para conseguir realizar um PATCH, primeiro ache o ID do evento solicitado. O link do URL deve ser do tipo: http://fastapi_app:8000/agendaIA/{id}",
+        "method": "PATCH",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `período de data, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `período de data, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `nome do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `descricao do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "engajamento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `engajamento do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `status do evento, se não houver, deixar vazio`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        128,
+        736
+      ],
+      "id": "d01ea82a-f636-4676-bb08-00583b19ec07",
+      "name": "PATCH IA"
+    },
+    {
+      "parameters": {
+        "toolDescription": "PATCH um evento de RH. Para conseguir realizar um PATCH, primeiro ache o ID do evento solicitado. O link do URL deve ser do tipo: http://fastapi_app:8000/agendaRH/{id}",
+        "method": "PATCH",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `período de data, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `período de data, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `nome do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `descricao do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "alcance",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `alcance do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters5_Value', `status do evento, se não houver, deixar vazio`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        736
+      ],
+      "id": "8bcbafcb-85e8-46d5-9826-1e4560e2e5dc",
+      "name": "PATCH RH"
+    },
+    {
+      "parameters": {
+        "toolDescription": "PATCH um evento de Marketing. Para conseguir realizar um PATCH, primeiro ache o ID do evento solicitado. O link do URL deve ser do tipo: http://fastapi_app:8000/agendaMKT/{id}",
+        "method": "PATCH",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data_inicio",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', `período de data, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "data_fim",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', `período de data, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "evento",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters2_Value', `nome do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "descricao",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters3_Value', `descricao do evento, se não houver, deixar vazio`, 'string') }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters4_Value', `status do evento, se não houver, deixar vazio`, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        528,
+        736
+      ],
+      "id": "254ef6e5-208e-43b8-8468-485525fb859f",
+      "name": "PATCH MKT"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "4d32b57a-33ae-4ec9-aee1-7ba54a6b9496",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -320,
+        176
+      ],
+      "id": "cf65d5b9-ab2c-43bf-b289-7ad3ba26ee62",
+      "name": "Webhook",
+      "webhookId": "4d32b57a-33ae-4ec9-aee1-7ba54a6b9496"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET IA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET RH": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET MKT": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST IA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST RH": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST MKT": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PATCH IA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PATCH RH": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PATCH MKT": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "06b800ae-e075-48c7-8624-53c275b32394",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d579ae6726b0b61a00485ba68ea2feb33c1f44f26562f0351be889ea88141c16"
+  },
+  "id": "wuiTvPbiVDpYXzSH",
+  "tags": []
+}
